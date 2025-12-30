@@ -6,11 +6,19 @@ const router = express.Router()
 // Cleaning the routes - Should not contain business logic
 const userController = require("../controllers/userController")
 
+// applying the middleware to one route
+const authCheck = (req, res, next) => {
+    console.log("Auth check passed")
+    next()
+}
+
+router.get("/", authCheck, userController.getUsers)
+
 // GET - fetch users
 // router.get("/", (req, res) => {
 //     res.json({message: "Get all users"})
 // })
-router.get("/", userController.getUsers)
+// router.get("/", userController.getUsers)
 
 // POST - Create user
 router.post("/", userController.createUser)
